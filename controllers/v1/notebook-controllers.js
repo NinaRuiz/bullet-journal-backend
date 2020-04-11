@@ -1,6 +1,9 @@
 const createNotebook = (req,res) => {
     try{
         console.log('req.body', req.body);
+
+        const name = req.body.name;
+
         res.send({
             status: 'OK',
             message: 'user created'
