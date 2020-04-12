@@ -1,8 +1,15 @@
+const notebook = require('../../mongodb/models/notebooks');
+const bodyparser = require('body-parser');
+
 const createNotebook = (req,res) => {
     try{
         console.log('req.body', req.body);
 
-        const name = req.body.name;
+        const {name} = req.body;
+
+        notebook.create({
+            name: name
+        });
 
         res.send({
             status: 'OK',

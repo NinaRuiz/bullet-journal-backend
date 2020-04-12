@@ -9,6 +9,11 @@ const routes = require('./routes/v1');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+
 routes(app);
 
 const PORT = process.env.PORT || 4000;
