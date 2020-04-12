@@ -15,7 +15,6 @@ const routes =  (app) => {
 
     app.post('/notebook', (req,res) => {
         createNotebook(req,res);
-        res.send('user created');
     });
 };
 

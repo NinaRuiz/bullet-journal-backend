@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
-dotenv.config();
-
 const routes = require('./routes/v1');
 
+dotenv.config();
 const app = express();
+
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -15,8 +16,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 routes(app);
-
-const PORT = process.env.PORT || 4000;
 
 mongoose.connect(process.env.MONGO, {
     useNewUrlParser: true,

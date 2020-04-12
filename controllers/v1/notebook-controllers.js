@@ -3,17 +3,17 @@ const bodyparser = require('body-parser');
 
 const createNotebook = (req,res) => {
     try{
-        console.log('req.body', req.body);
-
         const {name} = req.body;
+
+        console.log('req.body', req.body);
 
         notebook.create({
             name: name
         });
 
-        res.send({
+        return res.send({
             status: 'OK',
-            message: 'user created'
+            message: 'notebook created'
         })
     }catch (error){
         res.status(500).send({
