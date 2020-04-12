@@ -1,7 +1,25 @@
 const years = require('../../mongodb/models/years');
-const bodyparser = require('body-parser');
 
-const createYear = (req,res) => {
+const createYear = async (req,res) => {
+    try {
+        const {year, notebook} = req.body;
+
+        await years.create({
+            year: year,
+            notebook: notebook
+        });
+
+        res.send({
+            status: 'OK',
+            message: 'year created'
+            })
+    }catch (error) {
+        console.log('Create year:', error);
+        res.status(500).send({
+            status: 'ERROR',
+            message: error.message
+        })
+    }
 };
 
 const deleteYear = (req,res) => {
