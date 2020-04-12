@@ -1,4 +1,9 @@
 const {createNotebook} = require('../../controllers/v1/notebook-controllers');
+const yearsRoutes = require('years-routes');
+
+module.exports = app => {
+    app.use('/api/v1/years', yearsRoutes);
+};
 
 const routes =  (app) => {
     app.get('/', (req, res) => {
