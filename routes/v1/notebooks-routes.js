@@ -8,4 +8,8 @@ router.post('/', (req, res) => {
     notebookControllers.createNotebook(req,res);
 });
 
+router.delete('/:id', (req,res) => {
+    notebookControllers.deleteNotebook(req,res);
+});
+
 module.exports = router;

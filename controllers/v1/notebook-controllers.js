@@ -5,8 +5,6 @@ const createNotebook = (req,res) => {
     try{
         const {name} = req.body;
 
-        console.log('req.body', req.body);
-
         notebook.create({
             name: name
         });
@@ -24,9 +22,18 @@ const createNotebook = (req,res) => {
 };
 
 const deleteNotebook = (req,res) => {
-    res.send({
-        status: 'OK',
-        message: 'user deleted'
+    const notebookId = req.params.id;
+
+    notebook.findByIdAndRemove(notebookId, (err, notebookRemoved) => {
+       if(err){
+          return res.status(500).send({status: 'Error', message: err.message});
+       }else{
+         if(!notebookRemoved){
+             return res.status(404).send({status: 'Error', message: 'Notebook not found.'});
+         }else{
+             res.status(202).send(notebookRemoved);
+         }
+       }
     });
 };
 
