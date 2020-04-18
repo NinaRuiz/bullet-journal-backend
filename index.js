@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
-const routes = require('./routes/v1');
+const notebookRoutes = require('./routes/v1/notebooks-routes');
+const yearRoutes = require('./routes/v1/years-routes');
 
 dotenv.config();
 const app = express();
@@ -15,7 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-routes(app);
+app.use('/api/v1/notebook', notebookRoutes);
+app.use('/api/v1/year', yearRoutes);
 
 mongoose.connect(process.env.MONGO, {
     useNewUrlParser: true,

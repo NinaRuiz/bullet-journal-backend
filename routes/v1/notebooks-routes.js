@@ -4,6 +4,8 @@ const notebookControllers = require('../../controllers/v1/notebook-controllers')
 
 const router = express.Router();
 
-router.post('/', notebookControllers.createNotebook(req,res));
+router.post('/', (req, res) => {
+    notebookControllers.createNotebook(req,res);
+});
 
 module.exports = router;

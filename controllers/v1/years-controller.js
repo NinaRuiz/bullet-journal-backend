@@ -4,10 +4,20 @@ const createYear = async (req,res) => {
     try {
         const {year, notebook} = req.body;
 
-        await years.create({
+        console.log('req.body', req.body);
+
+        const newYear = new years({
             year: year,
             notebook: notebook
         });
+
+        newYear.save();
+
+        /*await years.create({
+            year: year,
+            notebook: notebook
+        });
+        */
 
         res.send({
             status: 'OK',
