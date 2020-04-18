@@ -19,4 +19,9 @@ router.get('/:id', (req,res) => {
    notebookControllers.getNotebook(req,res);
 });
 
+//Update Notebook Route
+router.put('/:id', (req,res) => {
+    notebookControllers.updateNotebook(req,res);
+});
+
 module.exports = router;

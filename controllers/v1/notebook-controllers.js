@@ -59,9 +59,19 @@ const getNotebook = (req,res) => {
 
 //Update Notebook method
 const updateNotebook = (req,res) => {
-    res.send({
-        status: 'OK',
-        message: 'user updated'
+    const notebookId = req.params.id;
+    const update = req.body;
+
+    Notebook.findByIdAndUpdate(notebookId, update, (err, notebookUpdated)=> {
+        if(err){
+            return res.status(500).send({status: 'Error', message: err.message});
+        }else {
+            if (!notebookUpdated) {
+                return res.status(404).send({status: 'Error', message: 'Notebook cannot be updated.'});
+            } else {
+                res.status(202).send(notebookUpdated);
+            }
+        }
     });
 };
 
