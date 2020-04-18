@@ -1,11 +1,13 @@
-const notebook = require('../../mongodb/models/notebooks');
+const Notebook = require('../../mongodb/models/notebooks');
 const bodyparser = require('body-parser');
 
+
+// Create Notebook method
 const createNotebook = (req,res) => {
     try{
         const {name} = req.body;
 
-        notebook.create({
+        Notebook.create({
             name: name
         });
 
@@ -21,10 +23,11 @@ const createNotebook = (req,res) => {
     }
 };
 
+//Delete Notebook method
 const deleteNotebook = (req,res) => {
     const notebookId = req.params.id;
 
-    notebook.findByIdAndRemove(notebookId, (err, notebookRemoved) => {
+    Notebook.findByIdAndRemove(notebookId, (err, notebookRemoved) => {
        if(err){
           return res.status(500).send({status: 'Error', message: err.message});
        }else{
@@ -37,13 +40,24 @@ const deleteNotebook = (req,res) => {
     });
 };
 
+//Get Notebook method
 const getNotebook = (req,res) => {
-    res.send({
-        status: 'OK',
-        data: []
+    const notebookId = req.params.id;
+
+    Notebook.findById(notebookId, (err, notebookFind) => {
+       if(err){
+           return res.status(500).send({status: 'Error', message: err.message});
+       }else{
+        if(!notebookFind){
+            return res.status(404).send({status: 'Error', message: 'Notebook not found.'});
+        }else{
+            res.status(202).send(notebookFind);
+        }
+       }
     });
 };
 
+//Update Notebook method
 const updateNotebook = (req,res) => {
     res.send({
         status: 'OK',
