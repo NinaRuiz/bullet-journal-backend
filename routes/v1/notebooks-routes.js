@@ -5,23 +5,28 @@ const notebookControllers = require('../../controllers/v1/notebook-controllers')
 const router = express.Router();
 
 //Create Notebook Route
-router.post('/', (req, res) => {
+router.post('/notebook/', (req, res) => {
     notebookControllers.createNotebook(req,res);
 });
 
 //Delete Notebook Route
-router.delete('/:id', (req,res) => {
+router.delete('/notebook/:id', (req,res) => {
     notebookControllers.deleteNotebook(req,res);
 });
 
 //Get Notebook Route
-router.get('/:id', (req,res) => {
+router.get('/notebook/:id', (req,res) => {
    notebookControllers.getNotebook(req,res);
 });
 
 //Update Notebook Route
-router.put('/:id', (req,res) => {
+router.put('/notebook/:id', (req,res) => {
     notebookControllers.updateNotebook(req,res);
+});
+
+//Notebooks pagination
+router.get('/notebooks/:page?', (req,res) => {
+    notebookControllers.getNotebooks(req,res);
 });
 
 module.exports = router;

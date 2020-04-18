@@ -1,5 +1,5 @@
 const Notebook = require('../../mongodb/models/notebooks');
-const bodyparser = require('body-parser');
+const mongoosePaginate = require('mongoose-pagination');
 
 
 // Create Notebook method
@@ -75,9 +75,32 @@ const updateNotebook = (req,res) => {
     });
 };
 
+//Pagination method
+const getNotebooks = (req,res) => {
+    const page = req.params.page || 1;
+
+    const itemsPerPage = 3;
+
+    Notebook.find().paginate(page, itemsPerPage, (err, notebooks, total) => {
+       if(err){
+           return res.status(500).send({status: 'Error', message: 'Error en la petición'});
+       } else {
+           if(!notebooks){
+               return res.status(404).send({status: 'Error', message: 'There isn\'t any notebooks'});
+           }else{
+               return res.status(202).send({
+                   pages: total,
+                   notebooks: notebooks
+               })
+           }
+       }
+    });
+};
+
 module.exports = {
     createNotebook,
     deleteNotebook,
     getNotebook,
-    updateNotebook
+    updateNotebook,
+    getNotebooks
 };
